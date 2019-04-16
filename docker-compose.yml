@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  app:
+    build: ./docker/
+    image: bleez/crud
+    ports:
+      - "8088:80"
+    depends_on:
+      - "database"
+    volumes:
+      - ".:/var/www/html"
+    networks:
+      - "webnet_bleez"
+
+  database:
+    build: ./docker/mysql/
+    environment:
+      - MYSQL_DATABASE=bleez
+      - MYSQL_ROOT_PASSWORD=bleez
+    volumes:
+      - ../data/bleez/mysql:/var/lib/mysql
+    depends_on:
+      - "phpmyamdin"
+    links:
+      - "phpmyamdin"
+    networks:
+      - "webnet_bleez"
+
+  phpmyamdin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=database
+      - PMA_USER=root
+      - PMA_PASSWORD=bleez
+    ports:
+      - "8015:8080"
+    networks:
+      - "webnet_bleez"
+
+networks:
+  webnet_bleez:

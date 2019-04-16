@@ -1,0 +1,17 @@
+{
+    "name": "johnatan/bleez",
+    "description": "Um simples CRUD",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Johnatan Tavares",
+            "email": "johnatantavares9@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "source"
+        }
+    },
+    "require": {}
+}
