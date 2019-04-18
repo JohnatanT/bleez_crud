@@ -4,17 +4,39 @@ namespace App;
 class Database{
 
     private $instance;
-    
+    private $host;
+    private $user;
+    private $password;
+    private $database;
+
+    public function __construct()
+    {
+        $this->host = '172.27.0.3';
+        $this->user = 'root';
+        $this->password = 'bleez';
+        $this->database = 'bleez';
+    }
+
     public function select($table, array $columns = [])
     {
         $query = "SELECT ";
 
         if (! empty($columns)) {
-            foreach ($columns as $key => $column) {
-                $query = $query . $column . ", ";
-            }
+            $i = 0;
+            $total = count($columns);
 
-            return $this->prepare($query);
+            foreach ($columns as $key => $column) {
+                $i++;
+
+                if ($i == $total) {
+                    $query = $query . '`' . $column . '`';
+                } else {
+                    $query = $query . '`' .$column . '`' . ", ";
+                }
+            }
+            $query = $query . " FROM {$table};";
+
+            return $this->prepare($query, true);
         }
         
         $query = "SELECT * FROM {$table};";
@@ -24,15 +46,20 @@ class Database{
 
     private function prepare($query, $select = false)
     {
-        $instance = new \PDO('mysql:host=172.27.0.3;dbname=bleez', 'root', 'bleez');
-        $p_sql = $instance->prepare($query);
+        try {
+            $instance = new \PDO('mysql:host='. $this->host .';dbname='.$this->database.'', ''.$this->user.'', ''.$this->password.'');
+            $p_sql = $instance->prepare($query);
 
-        if (! $select){
-            return $p_sql->execute();
+            if (! $select){
+                return $p_sql->execute();
+            }
+            $p_sql->execute();
+
+            return $p_sql->fetchAll(\PDO::FETCH_OBJ);
+        } catch (\PDOException $th) {
+           return $th->getMessage();
         }
-        $p_sql->execute();
-
-        return $p_sql->fetchAll(\PDO::FETCH_OBJ);
+        
     }
 
 }
