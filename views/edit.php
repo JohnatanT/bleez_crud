@@ -2,7 +2,7 @@
 
 <div class="container">
     <h2>Editar Produto: <?php echo $vars['product'][0]->name ?></h2>
-    <form action="?r=/update" method="post" name="edit-form" class="form">
+    <form action="?r=/update" method="post" name="edit-form" class="form" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $vars['product'][0]->id ?>" />
         <label for="name">Nome</label>
         <input required type="text" name="name" id="name" class="form-control" value="<?php echo $vars['product'][0]->name ?>">
