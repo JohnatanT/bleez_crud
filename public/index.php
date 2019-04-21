@@ -11,4 +11,8 @@ $app->get('/', function () use ($productController) {
     return $productController->index();
 });
 
+$app->post('/create', function () use ($productController) {
+    return $productController->store();
+});
+
 $app->run();

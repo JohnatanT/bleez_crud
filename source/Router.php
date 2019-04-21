@@ -1,14 +1,17 @@
 <?php
 namespace App;
-class Router {
+class Router 
+{
     private $routes = [];
     private static $params = [];
    
-    private function validate(string $method) {
+    private function validate(string $method) 
+    {
         return in_array($method, ['get', 'post']);
     }
     
-    public function __call(string $method, array $args) {
+    public function __call(string $method, array $args) 
+    {
         $method = strtolower($method);
         if(!$this->validate($method))
             return false;
@@ -20,7 +23,8 @@ class Router {
         return true;
     }
     
-    public function run () {
+    public function run () 
+    {
         $method = strtolower($_SERVER['REQUEST_METHOD']) ?? 'get';
         $route = $_GET['r'] ?? '/';
         
@@ -33,13 +37,15 @@ class Router {
         die( $this->routes[$method][$route]() );
     }
     
-    private function getParams(string $method) {
+    private function getParams(string $method) 
+    {
         if($method == 'get')
             return $_GET;
         return $_POST;
     }
     
-    public static function getRequest() {
+    public static function getRequest() 
+    {
         return self::$params;
     }
 }

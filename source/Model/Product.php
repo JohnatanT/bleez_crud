@@ -3,7 +3,8 @@ namespace App\Model;
 
 use App\Database;
 
-class Product{
+class Product
+{
 
     protected $table;
     protected $db;
@@ -17,6 +18,11 @@ class Product{
     public function get()
     {
         return $this->db->select($this->table);
+    }
+
+    public function create(array $data)
+    {
+        return $this->db->insert($this->table, $data);
     }
 
 }
