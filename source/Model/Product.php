@@ -3,7 +3,8 @@ namespace App\Model;
 
 use App\Database;
 
-class Product{
+class Product
+{
 
     protected $table;
     protected $db;

@@ -3,7 +3,8 @@ namespace App\Controller;
 
 use App\Service\ProductService;
 
-final class ProductController extends Controller {
+final class ProductController extends Controller
+ {
 
     public function index() 
     {
