@@ -79,7 +79,7 @@ class ProductService
             'image/png',
         ];
 
-        if($data['photo']) {
+        if(array_key_exists('tmp_name', $data['photo']) && $data['photo']['tmp_name'] != '') {
             if (! in_array($data['photo']['type'], $types)) {
                 $errors[] = "Tipo da Imagem não aceita! <br>";
             }
