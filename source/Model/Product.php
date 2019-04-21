@@ -25,4 +25,16 @@ class Product
         return $this->db->insert($this->table, $data);
     }
 
+    public function find($id)
+    {
+        return $this->db->selectById($this->table, $id);
+    }
+
+    public function update(array $data)
+    {
+        $id = $data['id'];
+        unset($data['id']);
+        return $this->db->update($this->table, $data, $id);
+    }
+
 }

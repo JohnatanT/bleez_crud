@@ -11,6 +11,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Preço</th>
                 <th scope="col">Descrição</th>
+                <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,6 +21,14 @@
                     <td><?php echo $product->name ?></td>
                     <td>R$ <?php echo number_format($product->price, 2, ',', '.') ?></td>
                     <td><?php echo $product->description ?></td>
+                    <td><span>
+                    <form action="?r=/edit" method="POST">
+                        <input type="hidden" name="edit_id" value="<?php echo $product->id ?>" />
+                        <button class="btn btn-success">
+                            Editar
+                        </button>
+                    </form>    
+                    </span> <span><span><a href="?r=/delete/<?php echo $product->id ?>">Deletar</a></span></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -53,7 +62,7 @@
         <input type="text" name="description"  class="form-control" required><br /><br />
         Foto de exibição:<br />
         <input type="file" name="photo"  class="form-control" required><br /><br />
-        <input type="submit" name="create" value="Cadastrar" / class="btn btn-info">
+        <input type="submit" name="create" value="Cadastrar" class="btn btn-info">
         </form>
       </div>
       <div class="modal-footer">

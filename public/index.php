@@ -15,4 +15,16 @@ $app->post('/create', function () use ($productController) {
     return $productController->store();
 });
 
+$app->post('/edit', function () use ($productController) {
+    return $productController->edit();
+});
+
+$app->post('/update', function () use ($productController) {
+    return $productController->update();
+});
+
+$app->post('/delete', function () use ($productController) {
+    return $productController->delete();
+});
+
 $app->run();
