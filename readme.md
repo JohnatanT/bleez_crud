@@ -9,7 +9,7 @@ Entre na pasta e execute:
 ```
 docker-compose up -d
 ```
-Isso fará com que o servidor embutido do PHP rode o projeto em localhost:8088
+Isso fará com que o projeto rode em localhost:8088
 
 Depois dê permissão na pasta de imagens:
 ```
