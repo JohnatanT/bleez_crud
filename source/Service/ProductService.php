@@ -121,9 +121,12 @@ class ProductService
             'name' => $data['name'],
             'price' => (int) $data['price'],
             'description' =>  $data['description']
-        ]);
+        ]);  
+    }
 
-         
+    public function delete($id)
+    {
+        return $this->model->delete($id);  
     }
 
 }

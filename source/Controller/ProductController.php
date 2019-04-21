@@ -52,7 +52,17 @@ final class ProductController extends Controller
             return $this->index();
         }   
 
-        die('Houve um erro no cadastro');
+        die('Houve um erro no update');
+    }
+
+    public function delete() 
+    {
+        $id = $_POST['delete_id'];
+        if ($products = (new ProductService)->delete($id)) {
+            return $this->index();
+        }  
+
+        die('Houve um erro em deletar');
     }
 
 }

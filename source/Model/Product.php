@@ -37,4 +37,9 @@ class Product
         return $this->db->update($this->table, $data, $id);
     }
 
+    public function delete($id)
+    {
+        return $this->db->delete($this->table, $id);
+    }
+
 }
