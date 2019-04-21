@@ -28,7 +28,15 @@
                             Editar
                         </button>
                     </form>    
-                    </span> <span><span><a href="?r=/delete/<?php echo $product->id ?>">Deletar</a></span></td>
+                    </span> 
+                    <span>
+                    <form action="?r=/delete" method="POST">
+                        <input type="hidden" name="delete_id" value="<?php echo $product->id ?>" />
+                        <button class="btn btn-danger">
+                            Deletar
+                        </button>
+                    </form>
+                    </span></td>
                     </tr>
                 <?php } ?>
             </tbody>
