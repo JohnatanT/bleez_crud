@@ -145,4 +145,18 @@ class Database
         }
     }
 
+    public function delete($table, $id)
+    {
+        try{
+            $query = "DELETE FROM {$table} WHERE id = :id";
+            $cn = $this->prepare();
+            $stmt = $cn->prepare($query);
+            $stmt->bindValue(":id", $id); 
+
+            return $stmt->execute();
+        }catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }
