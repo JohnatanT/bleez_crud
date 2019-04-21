@@ -3,7 +3,8 @@ namespace App\Service;
 
 use App\Model\Product;
 
-class ProductService {
+class ProductService 
+{
 
     protected $model;
 

@@ -1,7 +1,8 @@
 <?php
 namespace App;
 
-class Database{
+class Database
+{
 
     private $instance;
     private $host;
