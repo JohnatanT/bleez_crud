@@ -104,8 +104,44 @@ class Database
             }
 
             return $stmt->execute($dados);
-        } catch (Exception $e) {
-            
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function selectById($table, $id)
+    {
+        $query = "SELECT * FROM {$table} WHERE id = {$id}";
+
+        return $this->prepare($query, true);
+    }
+
+    public function update($table, array $data = [], $id)
+    {
+        try {
+            $sql = "UPDATE {$table} SET ";      
+
+            $x = count($data);
+            $i = 0;
+            foreach ($data as $key => $value) {
+                $i++;
+                if ($i == $x) {
+                    $sql = $sql . $key . ' = ' . ':' . $key;
+                } else {
+                    $sql = $sql . $key . ' = ' . ':' . $key.' , ';
+                }     
+            }
+            $sql = $sql . " WHERE id = {$id}";
+
+            $cn = $this->prepare();
+            $stmt = $cn->prepare($sql);
+            foreach ($data as $key => $value) {
+                    $stmt->bindValue(":{$key}", $value);   
+            }
+
+            return $stmt->execute($dados);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
     }
 
