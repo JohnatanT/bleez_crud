@@ -45,15 +45,17 @@ class Database
         return $this->prepare($query, true);
     }
 
-    private function prepare($query, $select = false)
+    private function prepare($query = null, $select = false)
     {
         try {
             $instance = new \PDO('mysql:host='. $this->host .';dbname='.$this->database.'', ''.$this->user.'', ''.$this->password.'');
+            
+            if (! $select){
+                return $instance;
+            }
+
             $p_sql = $instance->prepare($query);
 
-            if (! $select){
-                return $p_sql->execute();
-            }
             $p_sql->execute();
 
             return $p_sql->fetchAll(\PDO::FETCH_OBJ);
@@ -61,6 +63,50 @@ class Database
            return $th->getMessage();
         }
         
+    }
+
+    public function insert($table, array $data = [])
+    {
+        try {
+            $sql = "INSERT INTO {$table} ( ";      
+
+            $x = count($data);
+            $i = 0;
+            foreach ($data as $key => $value) {
+                $i++;
+                if ($i == $x) {
+                    $sql = $sql . $key;
+                } else {
+                    $sql = $sql . $key . ', ';
+                }
+                    
+            }
+            $sql = $sql . ') VALUES (';
+
+            $x = count($data);
+            $i = 0;
+            foreach ($data as $key => $value) {
+                $i++;
+                if ($i == $x) {
+                    $sql = $sql . ':' . $key;
+                } else {
+                    $sql = $sql . ':' . $key . ', ';
+                }
+                    
+            }
+            $sql = $sql . ')';
+
+            $cn = $this->prepare();
+            $stmt = $cn->prepare($sql);
+            foreach ($data as $key => $value) {
+                $stmt->bindValue(":{$key}", $value);
+                
+            }
+
+            return $stmt->execute($dados);
+        } catch (Exception $e) {
+            
+        }
     }
 
 }

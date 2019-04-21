@@ -20,4 +20,9 @@ class Product
         return $this->db->select($this->table);
     }
 
+    public function create(array $data)
+    {
+        return $this->db->insert($this->table, $data);
+    }
+
 }
